@@ -1,6 +1,6 @@
 # Right Shape
 
-[Open the guide and get the skill](https://michaeljabbour.github.io/amplifier-skill-right-shape/). [Watch the 86-second film](https://michaeljabbour.github.io/amplifier-skill-right-shape/#film) (captioned, with a transcript and a 15-second cut).
+[Open the guide and get the skill](https://michaeljabbour.github.io/amplifier-capability-right-shape/). [Watch the 86-second film](https://michaeljabbour.github.io/amplifier-capability-right-shape/#film) (captioned, with a transcript and a 15-second cut).
 
 **What it is for.** You have a job you want AI to help with. Before anyone builds anything, Right Shape answers three questions: what form should it take, how much should it do on its own, and what kind of AI, if any, does it need. It explains each answer in plain words and gives you a test that shows whether the result works. Most of the time the right answer is smaller than you expected.
 
@@ -11,8 +11,8 @@ It works on one job ("should our support inbox get an agent?") or on a whole set
 Bring one AI job, an existing capability or a repository portfolio. You get a placement card or an audit with source routes, limits and the next test.
 
 ```sh
-git clone https://github.com/michaeljabbour/amplifier-skill-right-shape.git
-cd amplifier-skill-right-shape
+git clone https://github.com/michaeljabbour/amplifier-capability-right-shape.git
+cd amplifier-capability-right-shape
 python3 scripts/capability.py install --dest ~/.agents/skills
 ```
 
@@ -83,7 +83,7 @@ The inventory can use `sources` with ID, revision, paths and embedded-method pat
 This repository is also an Amplifier bundle (`right-shape`). Add its behavior to your current host:
 
 ```bash
-amplifier bundle add "git+https://github.com/michaeljabbour/amplifier-skill-right-shape@main#subdirectory=behaviors/right-shape.yaml" --app
+amplifier bundle add "git+https://github.com/michaeljabbour/amplifier-capability-right-shape@main#subdirectory=behaviors/right-shape.yaml" --app
 ```
 
 For a local checkout that stays in step with your edits, use `file:///<path-to-checkout>/behaviors/right-shape.yaml` instead. Remove with `amplifier bundle remove right-shape-behavior --app`. Start a new session, then:
