@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — optional coaching checkpoint
+
+- Add a self-contained opt-in practice/review guide with a fictional task, preserved baseline, explicit scope/budget, user stop, reviewed keep/revert and private-by-choice records. Keep native operations, existing method budgets and evidence rules unchanged; no human efficacy or outside-use result is claimed.
+
 ## Generic capability contract — 2026-10-30
 
 - Align the contract with the approved public capability identity: one versioned capability manifest, stable method/native interfaces, complete Agent Skills resources where applicable, shared preview/install/doctor/uninstall tooling, compatibility receipts and local research refresh. Keep autonomy gates and evaluation requirements unchanged.

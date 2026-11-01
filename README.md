@@ -171,3 +171,9 @@ MIT; see [LICENSE](LICENSE). The family theme snapshot keeps its own [MIT notice
 ## Repository migration
 
 This repository was renamed from `amplifier-skill-right-shape` to `amplifier-capability-right-shape`. Existing installed method names, bundle aliases and native interfaces stay the same. See the [migration guide](https://michaeljabbour.github.io/migration/) and [repository map](https://michaeljabbour.github.io/migration/mapping.json) for source URL updates.
+
+## Optional coaching
+
+For an explicitly requested practice or review checkpoint, use [the local coaching guide](skills/right-shape/references/coaching-session.v1.md). It includes a fictional first task, a baseline, a bounded budget, stop rules and human-reviewed keep/revert. No learner trace is saved by default, and software checks do not establish human learning or outside-user usefulness.
+
+The optional [coaching-session/v1 record specification](contracts/coaching-session.v1.md) and [closed JSON schema](contracts/coaching-session.v1.schema.json) describe local bookkeeping only. Other capabilities do not import this repository or need this schema to operate.

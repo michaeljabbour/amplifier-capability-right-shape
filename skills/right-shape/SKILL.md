@@ -70,3 +70,7 @@ When a placement looks wrong, use the diagnosis table in the rubric. Fix the one
 - Autonomy is a design decision, separate from capability. A strong model may, and often should, run low on the ladder.
 - Assume every piece is replaceable. Favor contracts, small parts and recomposition over permanence.
 - When you cannot ask the person, for example because the task was delegated, work from the brief, label assumptions, and return your questions with the result instead of answering them yourself.
+
+## Optional coaching checkpoint
+
+Read [the local coaching guide](references/coaching-session.v1.md) only when the person asks for practice or optional session bookkeeping. Keep direct artifact production available; agree a small budget, preserve the baseline and stop on goal, user exit or no meaningful gain.

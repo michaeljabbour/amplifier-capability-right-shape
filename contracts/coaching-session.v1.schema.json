@@ -1,0 +1,405 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "coaching-session/v1"
+    },
+    "capability_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "mode": {
+      "enum": [
+        "coach",
+        "checkpoint"
+      ]
+    },
+    "user_job": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "user": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "job": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "source_status": {
+          "enum": [
+            "stated",
+            "assumed",
+            "fictional"
+          ]
+        }
+      },
+      "required": [
+        "user",
+        "job",
+        "source_status"
+      ]
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "starting_artifact": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "artifact_ref": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "status": {
+          "enum": [
+            "observed",
+            "supplied",
+            "assumed",
+            "fictional"
+          ]
+        }
+      },
+      "required": [
+        "artifact_ref",
+        "status"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allowed_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "excluded_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        }
+      },
+      "required": [
+        "allowed_artifacts",
+        "excluded_actions"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "round_limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "rounds_used": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20
+        },
+        "time_limit_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 240
+        },
+        "provider_spend": {
+          "enum": [
+            "none",
+            "separately_authorized"
+          ]
+        }
+      },
+      "required": [
+        "round_limit",
+        "rounds_used",
+        "time_limit_minutes",
+        "provider_spend"
+      ]
+    },
+    "preserve": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "\\S"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "feedback_checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "status": {
+          "enum": [
+            "waiting",
+            "observed",
+            "unavailable"
+          ]
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "when",
+        "question",
+        "status",
+        "source_ref"
+      ]
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "critical": {
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "unknown",
+              "not_applicable"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "critical",
+          "status"
+        ]
+      }
+    },
+    "stop": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "goal_met",
+              "user_stopped",
+              "budget_exhausted",
+              "stalled",
+              "no_meaningful_gain",
+              "gate_blocked",
+              "missing_input_or_authority"
+            ]
+          }
+        },
+        "reason": {
+          "enum": [
+            "continue",
+            "goal_met",
+            "user_stopped",
+            "budget_exhausted",
+            "stalled",
+            "no_meaningful_gain",
+            "gate_blocked",
+            "missing_input_or_authority"
+          ]
+        },
+        "user_can_stop_anytime": {
+          "const": true
+        }
+      },
+      "required": [
+        "criteria",
+        "reason",
+        "user_can_stop_anytime"
+      ]
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "proposed",
+            "keep",
+            "revert",
+            "leave_unchanged"
+          ]
+        },
+        "review": {
+          "enum": [
+            "pending",
+            "reviewed",
+            "declined"
+          ]
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "action",
+        "review",
+        "source_ref",
+        "reason"
+      ]
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "observed",
+            "unavailable"
+          ]
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "status",
+        "source_ref"
+      ]
+    },
+    "growth": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "not_measured",
+            "observed_task"
+          ]
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "status",
+        "source_refs"
+      ]
+    },
+    "recording": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "save_opt_in": {
+          "type": "boolean"
+        },
+        "location_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "pattern": "\\S"
+        },
+        "retention": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "pattern": "\\S"
+        }
+      },
+      "required": [
+        "save_opt_in",
+        "location_ref",
+        "retention"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "capability_id",
+    "mode",
+    "user_job",
+    "goal",
+    "starting_artifact",
+    "baseline",
+    "scope",
+    "budget",
+    "preserve",
+    "feedback_checkpoint",
+    "gates",
+    "stop",
+    "decision",
+    "human_review",
+    "growth",
+    "recording"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:amplifier:coaching-session:v1",
+  "title": "Optional coaching session record v1",
+  "description": "Optional local documentation metadata. Validity confers no runtime authority, human efficacy or outside-user evidence."
+}
