@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased — staged 2026-11-02
+
+- Require actual non-blank text for stated honest moves and tiebreak reasons. Boolean, numeric and container placeholders no longer satisfy those fields. Missing/empty optional reasons and valid textual cards retain their behavior. This is input-contract validation, not proof of gate truth or correct judgment.
+
 ## Unreleased — optional coaching checkpoint
 
 - Add a self-contained opt-in practice/review guide with a fictional task, preserved baseline, explicit scope/budget, user stop, reviewed keep/revert and private-by-choice records. Keep native operations, existing method budgets and evidence rules unchanged; no human efficacy or outside-use result is claimed.

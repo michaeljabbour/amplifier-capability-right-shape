@@ -63,6 +63,20 @@ class PlacementTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,'honest move'):validate(self.base(honest_move=''))
         self.assertEqual(validate(self.base(rung=2,tiebreak='Use the bounded manual version.'))['placement_rung'],2)
 
+    def test_required_reasons_are_text_not_truthy_placeholders(self):
+        for value in [True, 1, ['lower the need'], {'reason': 'lower the need'}, '   ']:
+            with self.subTest(field='honest_move', value=value):
+                with self.assertRaises(ValueError):
+                    validate(self.base(honest_move=value))
+            with self.subTest(field='tiebreak', value=value):
+                with self.assertRaises(ValueError):
+                    validate(self.base(rung=2, tiebreak=value))
+
+    def test_optional_empty_reasons_and_text_controls_remain_valid(self):
+        self.assertTrue(validate(self.base(failed=[], honest_move=''))['valid'])
+        self.assertTrue(validate(self.base(failed=[], honest_move=None))['valid'])
+        self.assertEqual(validate(self.base(rung=2, tiebreak='Use a bounded manual route.'))['placement_rung'], 2)
+
     def test_all_need_vectors_and_gate_subsets_respect_each_cap(self):
         rules=read_rubric((ROOT/'skills/right-shape/references/rubric.md').read_text())
         for need in itertools.product(range(4),repeat=4):

@@ -73,6 +73,15 @@ def need_rung(score, bands):
     return next(rung for low, high, rung in bands if low <= score <= high)
 
 
+def stated_reason(value, eid, field):
+    """A reason is text, not a truthy placeholder; missing/empty stays absent."""
+    if value is None:
+        return False
+    if type(value) is not str or (value and not value.strip()):
+        raise ValueError(f'{eid}: {field} must be stated as non-blank text')
+    return bool(value)
+
+
 def place(example, r):
     """Recompute a fictional placement from the rubric and refuse one that does not follow it."""
     eid = example['id']
@@ -98,9 +107,11 @@ def place(example, r):
             raise ValueError(f'{eid}: claimed {name} {example[name]} differs from computed {actual}')
     if rung > expected:
         raise ValueError(f'{eid}: rung {rung} is above min(need {wanted}, ceiling {ceiling})')
-    if rung < expected and not example.get('tiebreak'):
+    has_tiebreak = stated_reason(example.get('tiebreak'), eid, 'tiebreak')
+    has_honest_move = stated_reason(example.get('honest_move'), eid, 'honest_move')
+    if rung < expected and not has_tiebreak:
         raise ValueError(f'{eid}: a rung below {expected} needs a stated tiebreak')
-    if (wanted > ceiling) != bool(example.get('honest_move')):
+    if (wanted > ceiling) != has_honest_move:
         raise ValueError(f'{eid}: an honest move is required exactly when need exceeds the ceiling')
     check_ids = {row[0].split()[0] for row in r['checks']}
     if not set(example['checks']) <= check_ids:
